@@ -4,25 +4,27 @@ import { FiThumbsUp } from 'react-icons/fi'
 import { FaRegCommentAlt } from 'react-icons/fa'
 import { RiShareForwardLine } from 'react-icons/ri'
 
-const Post = () => {
+const Post = ({ post }) => {
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col' key={post.id}>
       <div className='bg-white mt-6 rounded-md p-4'>
         <div className='flex items-center space-x-2'>
           {/* Post Sender Information */}
-          <img className='rounded-full w-10 h-10' src='https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg' />
+          <img className='rounded-full w-10 h-10' src={post.profilePicture} />
           <div>
-            <p className='font-medium'>Name here</p>
-            <p className='text-xs text-gray-500'>{new Date().toLocaleString()}</p>
+            <p className='font-medium'>{post.name}</p>
+            <p className='text-xs text-gray-500'>{post.timeStamp}</p>
           </div>
         </div>
-        <p className='py-4'>Placeholder</p>
+        <p className='py-4'>{post.post}</p>
       </div>
 
       {/* Image Content */}
-      <div className='relative h-60 md:h-96 bg-white'>
-        <Image src="https://images.pexels.com/photos/1586205/pexels-photo-1586205.jpeg" layout='fill' objectFit='cover' />
-      </div>
+      {post.image != null && (
+        <div className='relative h-60 md:h-96 bg-white'>
+          <Image src={post.image} layout='fill' objectFit='cover' />
+        </div>
+      )}
 
       {/* Footer */}
       <div className='flex items-center justify-center bg-white p-2'>

@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { addPost } from '@/public/src/features/postSlice';
 
 const CreatePost = () => {
-    const FACEBOOK_CLONE_ENDPOINT = "";
+    const FACEBOOK_CLONE_ENDPOINT = "http://localhost:8080/api/v1/post";
 
     const { data: session } = useSession();
     const inputRef = useRef(null);
@@ -45,7 +45,7 @@ const CreatePost = () => {
         formData.append("post", inputRef.current.value);
         formData.append("name", session?.user.id);
         formData.append("email", session?.user.email);
-        formData.append("profilePic", session?.user.image);
+        formData.append("profilePicture", session?.user.image);
 
         axios.post(FACEBOOK_CLONE_ENDPOINT, formData, {
             headers: { Accept: "application/json" },
@@ -63,18 +63,19 @@ const CreatePost = () => {
         <div className='flex p-4 space-x-2 items-center'>
             <Image 
                 src={session?.user.image}
+                alt=''
                 height={40}
                 width={40}
                 className="rounded-full cursor-pointer"
             />
-            <form className='flex flex-1'>
-                <input 
-                    className='rounded-full h-12 grow focus:outline-none font-medium bg-gray-100 px-4'
-                    type='text'
+            <form className="flex flex-1" onSubmit={handleSubmit}>
+                <input
+                    className="rounded-full h-12 grow focus:outline-none font-medium bg-gray-100 px-4"
+                    type="text"
                     ref={inputRef}
                     placeholder={`What's on your mind, ${session?.user.name}?`}
-                ></input>
-                <button hidden onClick={handleSubmit}></button>
+                />
+                <button type="submit" hidden></button>
             </form>
         </div>
 
